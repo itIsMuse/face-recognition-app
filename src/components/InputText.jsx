@@ -2,7 +2,9 @@ import React from 'react'
 
 const InputText = () => {
   return (
-    <div>InputText</div>
+    <div>
+      InputText
+    </div>
   )
 }
 

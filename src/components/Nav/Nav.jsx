@@ -1,11 +1,14 @@
 import React from 'react'
+import Logo from '../Logo/Logo'
 
 
 const Nav = () => {
   return (
     <div>
-      <nav style={{display : 'flex', justifyContent: 'flex-end', textDecoration: 'underline'}}>
-        <p className='text-lg underline text-yellow p-3 hover:opacity-75 cursor-pointer'>Sign out </p>
+     
+        <nav className='inline-block grid grid-cols-2 m-2 ' >
+      <Logo />
+        <p className='inline-block text-lg underline text-black p-3 hover:opacity-75 cursor-pointer'>Sign out </p>
       </nav>
     </div>
   )

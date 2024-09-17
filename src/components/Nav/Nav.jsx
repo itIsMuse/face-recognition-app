@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <div>
       <nav style={{display : 'flex', justifyContent: 'flex-end', textDecoration: 'underline'}}>
-        <p className='text-lg underline text-black p-3 hover:opacity-75 cursor-pointer'>Sign out </p>
+        <p className='text-lg underline text-yellow p-3 hover:opacity-75 cursor-pointer'>Sign out </p>
       </nav>
     </div>
   )

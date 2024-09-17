@@ -1,16 +1,17 @@
 import React from 'react'
 import Tilt from 'react-parallax-tilt'
 import './logo.css'
+import MUSEE from'./MUSEE.png'
 
 const Logo = () => {
   return (
     <div
       className ="m-4 mt-0">
-        <Tilt className='tilt rounded-md shadow-lg' options = {{max: 25}} style={{height: '100px'}}>
-<div className='tilt-inner'>
-🌝
-</div>
-</Tilt>
+        <Tilt>
+      <div className='m-7' style={{ height: '250px', backgroundColor: 'darkgreen' }}>
+       <img src={MUSEE}/>
+      </div>
+    </Tilt>
 </div>
   )
 }

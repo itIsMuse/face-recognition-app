@@ -10,7 +10,7 @@ const App = () => {
     <>
       <div className='App'>
         <Nav />
-        {/* <Logo /> */}
+        <Logo />
        {/* { <InputText />
         <FaceRecognition />} */}
       </div>

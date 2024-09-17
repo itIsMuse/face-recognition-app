@@ -7,8 +7,8 @@ const Logo = () => {
   return (
     <div
       className ="m-4 mt-0">
-        <Tilt>
-      <div className='m-7' style={{ height: '250px', backgroundColor: 'darkgreen' }}>
+        <Tilt className='tilt' options={{max: 25}} style={{}}>
+      <div className='' style={{ height: '100%',backgroundColor: 'black' }}>
        <img src={MUSEE}/>
       </div>
     </Tilt>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Nav from './components/Nav/Nav'
 import Logo from './components/Logo/Logo'
-import InputText from './components/InputText'
+import InputText from './components/InputForm/InputText'
 import FaceRecognition from './components/FaceRecognition'
 
 const App = () => {
@@ -11,8 +11,8 @@ const App = () => {
       <div className='App'>
         <Nav />
         <Logo />
-       {/* { <InputText />
-        <FaceRecognition />} */}
+         <InputText />
+        {/* <FaceRecognition /> */}
       </div>
     </>
   )

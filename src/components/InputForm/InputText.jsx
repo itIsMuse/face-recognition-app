@@ -6,13 +6,11 @@ const InputText = () => {
   const introText = 'The brain will detect faces in your pictures. Give it a try'
   return (
     <>
-    <div className='text-lg container border'>
-      <div className='center'>
-      <p>{introText}</p>
-      </div>
+    <div className='text-lg w-full border'>
+      <p className='text-center'>{introText}</p>
     <div className='center'>
-      <input className='center w-3/4' type="text" />
-      <button className='border p-1 grow'type='submit'>Detect</button>
+      <input className='w-4/5'  type="text" />
+      <button className='p-2 bg-yellow-800 w-2/5 flex-grow' type='submit'>Detect</button>
     </div>
     </div>
     </>

@@ -8,9 +8,9 @@ const InputText = () => {
     <>
     <div className='text-lg w-full border'>
       <p className='text-center'>{introText}</p>
-    <div className='center gap-4'>
+    <div className='center'>
       <input className='w-3/5'  type="text" />
-      <button className='p-3 bg-yellow-800 w-2/5  hover:flex-grow-1 transition-all ' type='submit'>Detect</button>
+      <button className='p-2 bg-yellow-600 w-1/5 transition-transform duration-700 ease-in-out hover:scale-110' type='submit'>Detect</button>
     </div>
     </div>
     </>

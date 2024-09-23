@@ -7,7 +7,7 @@ const InputText = () => {
   const introText = 'The brain will detect faces in your pictures. Give it a try'
   return (
     <>
-    <div className='text-lg w-full'>
+    <div className='p-5 pt-9 mt-8 shadow text-lg w-full'>
       <p className='text-center'>{introText}</p>
       <div className='form p-5 rounded-md shadow-md'>
     <div className='center'>

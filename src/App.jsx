@@ -3,7 +3,7 @@ import Nav from './components/Nav/Nav'
 import Logo from './components/Logo/Logo'
 import InputText from './components/InputForm/InputText'
 import FaceRecognition from './components/FaceRecognition'
-
+import Rank from './components/Rank'
 const App = () => {
 
   return (
@@ -11,6 +11,7 @@ const App = () => {
       <div className='App'>
         <Nav />
         <Logo />
+        <Rank />
          <InputText />
         {/* <FaceRecognition /> */}
       </div>

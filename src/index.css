@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body{
-    background: linear-gradient(90deg, #060842, #e1e0e0  50%);
-    color: #e1e0e0;
+    background: linear-gradient(90deg, #060842, #e1e0e0  100%);
+    color: #fff;
 }

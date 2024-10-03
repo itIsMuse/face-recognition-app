@@ -88,7 +88,7 @@ const ParticlesComponent = (props) => {
           value: 150,
         },
         opacity: {
-          value: 1.0,
+          value: 5.0,
         },
         shape: {
           type: "circle",

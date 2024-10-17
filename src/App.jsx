@@ -16,7 +16,7 @@ const setUpJSON = (imageUrl) => {
     // Specify the correct user_id/app_id pairings
     // Since you're making inferences outside your app's scope
     const USER_ID = 'museya';
-    const APP_ID = 'mainface-detection';
+    const APP_ID = 'face-detection';
     // Change these to whatever model and image URL you want to use
     const MODEL_ID = 'face-detection';
     const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';
@@ -63,7 +63,6 @@ const setUpJSON = (imageUrl) => {
 
 
 const [inputUrl, setInputUrl] = useState('');
-const [imageUrl, setImageUrl] = useState('')
 const [faceData, setFaceData] = useState(null)
 
 
@@ -72,16 +71,15 @@ setInputUrl(event.target.value)
 }
 
 const onButtonSubmit = () => {
-setImageUrl(inputUrl)
 
-    fetch("https://api.clarifai.com/v2/models/" + 
-        'face-recognition' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
-        setUpJSON(imageUrl))
+    fetch("/api/v2/models/" + 
+        'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
+        setUpJSON(inputUrl))
     .then(response => response.json())
     .then(result => {
-
+        console.log(result)
         const regions = result.outputs[0].data.regions;
-
+        console.log(regions)
         regions.forEach(region => {
             // Accessing and rounding the bounding box values
             const boundingBox = region.region_info.bounding_box;

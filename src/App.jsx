@@ -6,8 +6,6 @@ import FaceRecognition from './components/FaceRecognition'
 import './App.css'
 import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
-import global from 'global'
-// import clarifai from 'clarifai'
 
 const App = () => {
 

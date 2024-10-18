@@ -1,9 +1,9 @@
 import React from 'react'
 
-const FaceRecognition = () => {
+const FaceRecognition = ({imageBox}) => {
   return (
-    <div className='text-red'>
-      FaceRecognition
+    <div className='center' >
+      <img src = {imageBox} alt = 'sent image'/>
     </div>
   )
 }

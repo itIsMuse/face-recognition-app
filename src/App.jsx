@@ -69,6 +69,7 @@ setInputUrl(event.target.value)
 }
 
 const onButtonSubmit = () => {
+    setFaceData(inputUrl)
 
     fetch("/api/v2/models/" + 
         'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
@@ -104,13 +105,13 @@ const onButtonSubmit = () => {
   return (
     
       <div className='App'>
-<ParticlesComponent id = 'particle'/>
+        <ParticlesComponent id = 'particle'/>
         <Nav />
         <Logo />
         <Rank />
-         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
+        <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        {/* <FaceRecognition /> */}
+        <FaceRecognition imageBox = {faceData}/>
       </div>
   )
 }

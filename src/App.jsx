@@ -78,7 +78,6 @@ const onButtonSubmit = () => {
     .then(result => {
         console.log(result)
         const regions = result.outputs[0].data.regions;
-        console.log(regions)
         regions.forEach(region => {
             // Accessing and rounding the bounding box values
             const boundingBox = region.region_info.bounding_box;

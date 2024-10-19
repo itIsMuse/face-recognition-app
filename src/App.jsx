@@ -76,7 +76,6 @@ const onButtonSubmit = () => {
         setUpJSON(inputUrl))
     .then(response => response.json())
     .then(result => {
-        console.log(result)
         const regions = result.outputs[0].data.regions;
         regions.forEach(region => {
             // Accessing and rounding the bounding box values

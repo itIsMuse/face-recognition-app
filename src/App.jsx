@@ -69,7 +69,7 @@ setInputUrl(event.target.value)
 }
 
 const onButtonSubmit = () => {
-    setFaceData(inputUrl)
+    inputUrl
 
     fetch("/api/v2/models/" + 
         'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
@@ -91,7 +91,7 @@ const onButtonSubmit = () => {
                 const value = concept.value.toFixed(4);
 
                 console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
-                
+    
             });
         });
 
@@ -109,14 +109,14 @@ const onButtonSubmit = () => {
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition imageBox = {faceData}/>
+        <FaceRecognition imageBox = {inputUrl}/>
       </div>
   )
 }
 
 export default App
 
-// {
-//     to do 
-//     1. update proxy and keep updating errors till it works 
-// }
+// what do i want to do
+// 1. create a function that collects data from the regions and calculates the location
+// 2. calculate that data relative to the total image
+// 3. display a box that surrounds that relative value i calculated

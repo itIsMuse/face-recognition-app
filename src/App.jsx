@@ -9,6 +9,17 @@ import Rank from './components/Rank'
 
 const App = () => {
 
+    const calculateFaceLocation = (data) => {
+        const image = document.getElementById('img')
+        const width = Number(image.width)
+        const height = Number(image.height)
+        console.log(width, height)
+
+        return 
+        // set the right location by multiply the giving coordinates to the width and height 
+
+    }
+
 const setUpJSON = (imageUrl) => {
     const PAT = '87124373b52f4a0a9374b0aa624c5402';
     // Specify the correct user_id/app_id pairings
@@ -74,7 +85,7 @@ const onButtonSubmit = () => {
     fetch("/api/v2/models/" + 
         'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
         setUpJSON(inputUrl))
-    .then(response => response.json())
+    .then(response => calculateFaceLocation(response))
     .then(result => {
         const regions = result.outputs[0].data.regions;
         regions.forEach(region => {

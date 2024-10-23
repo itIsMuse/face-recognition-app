@@ -10,10 +10,10 @@ import Rank from './components/Rank'
 const App = () => {
 
     const calculateFaceLocation = (data) => {
-        const image = document.getElementById('img')
-        const width = Number(image.width)
-        const height = Number(image.height)
-        console.log(width, height)
+        const image = document.getElementById('img') // get the image through dom manipulation
+        const width = Number(image.width) // get the width based on the cordinates given by clarifai
+        const height = Number(image.height) // get the width based on the cordinates given by clarifai
+        console.log(width, height) //check if it is working
 
         return 
         // set the right location by multiply the giving coordinates to the width and height 
@@ -62,6 +62,7 @@ const setUpJSON = (imageUrl) => {
         },
         body: raw
     };
+    console.log(requestOptions)
     return requestOptions
 }
 

@@ -6,16 +6,27 @@ import FaceRecognition from './components/FaceRecognition'
 import './App.css'
 import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
+import { data } from 'autoprefixer'
 
 const App = () => {
 
-    const calculateFaceLocation = (data) => {
+    const calculateFaceLocation = (response) => {
+        
+        console.log(response.outputs[0])
+        const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box
         const image = document.getElementById('img') // get the image through dom manipulation
-        const width = Number(image.width) // get the width based on the cordinates given by clarifai
-        const height = Number(image.height) // get the width based on the cordinates given by clarifai
-        console.log(width, height) //check if it is working
+        const width = Number(image.width) // get the width of the image
+        const height = Number(image.height) // get the width of the image
+        
+        const calculated = {
+            top: Number(clarifaiData.topRow * width),
+            bottom: Number(clarifaiData.bottomRow * width),
+            left: Number(clarifaiData.leftCol * height),
+            right: Number(clarifaiData.rightCol * height )
+        }
+        console.log(calculated)
+        return calculated
 
-        return 
         // set the right location by multiply the giving coordinates to the width and height 
 
     }
@@ -62,7 +73,7 @@ const setUpJSON = (imageUrl) => {
         },
         body: raw
     };
-    console.log(requestOptions)
+    // console.log(requestOptions)
     return requestOptions
 }
 
@@ -86,7 +97,8 @@ const onButtonSubmit = () => {
     fetch("/api/v2/models/" + 
         'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
         setUpJSON(inputUrl))
-    .then(response => calculateFaceLocation(response))
+    .then(response => response.json())
+    .then(calculateFaceLocation(response))
     .then(result => {
         const regions = result.outputs[0].data.regions;
         regions.forEach(region => {
@@ -128,7 +140,4 @@ const onButtonSubmit = () => {
 
 export default App
 
-// what do i want to do
-// 1. create a function that collects data from the regions and calculates the location
-// 2. calculate that data relative to the total image
-// 3. display a box that surrounds that relative value i calculated
+// watch that previous video again checking why his code is different from mine 

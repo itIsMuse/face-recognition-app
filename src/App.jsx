@@ -19,11 +19,10 @@ const App = () => {
         
         const calculated = {
             top: Number(clarifaiData.top_row * height),
-            bottom: Number(clarifaiData.bottom_row * height),
+            bottom: Number( height - (clarifaiData.bottom_row * height)),
             left: Number(clarifaiData.left_col * width),
-            right: Number(clarifaiData.right_col * width )
+            right: Number(width - (clarifaiData.right_col * width) )
         }
-        console.log(calculated)
         return calculated
 
         // set the right location by multiply the giving coordinates to the width and height 
@@ -83,7 +82,7 @@ const setUpJSON = (imageUrl) => {
 
 
 const [inputUrl, setInputUrl] = useState('');
-const [faceData, setFaceData] = useState(null)
+const [box, setBox] = useState(null)
 
 
 const onInputChange = (event) => { 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Nav from './components/Nav/Nav'
 import Logo from './components/Logo/Logo'
 import InputText from './components/InputForm/InputText'
@@ -19,15 +19,50 @@ const App = () => {
         
         const calculated = {
             top: Number(clarifaiData.top_row * height),
-            bottom: Number( height - (clarifaiData.bottom_row * height)),
+            bottom: Number(clarifaiData.bottom_row * height),
             left: Number(clarifaiData.left_col * width),
-            right: Number(width - (clarifaiData.right_col * width) )
+            right: Number(clarifaiData.right_col * width) 
         }
+        console.log(calculated)
         return calculated
-
         // set the right location by multiply the giving coordinates to the width and height 
 
     }
+
+    const canvas = () => {
+        const canvasRef = useRef(null);
+        const imgRef = useRef(null);
+      
+        // Function to draw bounding box
+        const drawBoundingBox = (x, y, width, height) => {
+          const canvas = canvasRef.current;
+          console.log(canvas)
+          const ctx = canvas.getContext('2d');
+          const img = imgRef.current;
+      
+          if (img.complete) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x, y, width, height); // Draws bounding box
+          } else {
+            img.onload = () => {
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              ctx.strokeStyle = 'red';
+              ctx.lineWidth = 2;
+              ctx.strokeRect(x, y, width, height); // Draws bounding box
+            };
+          }
+        };
+      
+        // Example coordinates
+        useEffect(() => {
+          drawBoundingBox(120, 40, 300, 200); // You can replace with dynamic values
+        }, []);
+    }
+
+   
 
 const setUpJSON = (imageUrl) => {
     const PAT = '87124373b52f4a0a9374b0aa624c5402';
@@ -131,12 +166,13 @@ const onButtonSubmit = () => {
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition imageBox = {inputUrl}/>
+        <FaceRecognition canvas = {canvas} imageBox = {inputUrl}/>
       </div>
   )
 }
 
 export default App
 
-// learn how to get the whole box to show then see where it is in your code to understand the logic behind his width - clarifyface stuff 
-// try to checkout how chatgpt did it 
+// Read and understand logic giving by chatgpt
+// test chatgpt example ,try to use what its prompt said about creating other components and imports
+// go back and use the way you were taught by adre  

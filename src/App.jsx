@@ -6,7 +6,6 @@ import FaceRecognition from './components/FaceRecognition'
 import './App.css'
 import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
-import { data } from 'autoprefixer'
 
 const App = () => {
 
@@ -23,44 +22,17 @@ const App = () => {
             left: Number(clarifaiData.left_col * width),
             right: Number(clarifaiData.right_col * width) 
         }
-        console.log(calculated)
         return calculated
         // set the right location by multiply the giving coordinates to the width and height 
 
     }
-
-    const canvas = () => {
-        const canvasRef = useRef(null);
-        const imgRef = useRef(null);
-      
-        // Function to draw bounding box
-        const drawBoundingBox = (x, y, width, height) => {
-          const canvas = canvasRef.current;
-          console.log(canvas)
-          const ctx = canvas.getContext('2d');
-          const img = imgRef.current;
-      
-          if (img.complete) {
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      
-            ctx.strokeStyle = 'red';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x, y, width, height); // Draws bounding box
-          } else {
-            img.onload = () => {
-              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-              ctx.strokeStyle = 'red';
-              ctx.lineWidth = 2;
-              ctx.strokeRect(x, y, width, height); // Draws bounding box
-            };
-          }
-        };
-      
-        // Example coordinates
-        useEffect(() => {
-          drawBoundingBox(120, 40, 300, 200); // You can replace with dynamic values
-        }, []);
+    const boundingBox ={
+        x: 120,
+        y: 40,
+        width: 300,
+        height:200,
     }
+
 
    
 
@@ -166,7 +138,7 @@ const onButtonSubmit = () => {
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition canvas = {canvas} imageBox = {inputUrl}/>
+        <FaceRecognition boundingBox = {boundingBox} imageBox = {inputUrl}/>
       </div>
   )
 }

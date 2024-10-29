@@ -1,12 +1,23 @@
-import React from 'react'
+import React, {useRef, useEffect} from 'react'
+import drawBoundingBox from './drawBoundingBox'
 
-const FaceRecognition = ({imageBox, canvas}) => {
-  console.log(canvas)
+const FaceRecognition = ({imageBox, boundingBox}) => {
+
+  const canvasRef = useRef(null);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    if (boundingBox && canvasRef.current && imgRef.current) {
+      const { x, y, width, height } = boundingBox;
+      drawBoundingBox(canvasRef.current, imgRef.current, x, y, width, height);
+    }
+  }, [boundingBox]);
+
   return (
     <div className='center pa-2' >
       <div className=''>
-      <canvas ref={canvas} width="500" height="auto"></canvas>
-      <img  id='img'  src = {imageBox} alt = 'sent image' width='500px' height='auto'/>
+      <canvas ref={canvasRef} width="500" height="auto"></canvas>
+      <img style={{display: 'none'}} ref={imgRef} id='img'  src = {imageBox} alt = 'sent image'/>
       </div>
     </div>
   )

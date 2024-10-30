@@ -9,21 +9,23 @@ import Rank from './components/Rank'
 
 const App = () => {
 
+    
+
     const calculateFaceLocation = (data) => {
-        
+        const [boundingBoxes, setBoundindBoxes] = useState([])
+        const image = document.getElementById('img') 
         const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box
-        const image = document.getElementById('img') // get the image through dom manipulation
-        const width = Number(image.width) // get the width of the image
-        const height = Number(image.height) // get the width of the image
+        console.log(clarifaiData)
         
-        const calculated = {
-            top: Number(clarifaiData.top_row * height),
-            bottom: Number(clarifaiData.bottom_row * height),
-            left: Number(clarifaiData.left_col * width),
-            right: Number(clarifaiData.right_col * width) 
+        const faceData = [{x: Number(clarifaiData.left_col * image.width),
+            y: Number(clarifaiData.top_row * image.height), width:Number((clarifaiData.right_col - clarifaiData.left_col) * image.width),height: Number((clarifaiData.bottom_row - clarifaiData.top_row) * image.height), 
+    }]
+
+
         }
         return calculated
         // set the right location by multiply the giving coordinates to the width and height 
+       
 
     }
     const boundingBox ={
@@ -99,7 +101,7 @@ setInputUrl(event.target.value)
 const onButtonSubmit = () => {
     inputUrl
 
-    fetch("/api/v2/models/" + 
+    fetch('/api/v2/models/' + 
         'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
         setUpJSON(inputUrl))
     .then(response => response.json())
@@ -128,7 +130,6 @@ const onButtonSubmit = () => {
     .catch(error => console.log('error', error));
 
 }
-
   return (
     
       <div className='App'>
@@ -141,10 +142,8 @@ const onButtonSubmit = () => {
         <FaceRecognition boundingBox = {boundingBox} imageBox = {inputUrl}/>
       </div>
   )
-}
+
 
 export default App
 
-// Read and understand logic giving by chatgpt
-// test chatgpt example ,try to use what its prompt said about creating other components and imports
-// go back and use the way you were taught by adre  
+// collect boundingbox data from clarifai  

@@ -1,5 +1,6 @@
 import React, {useRef, useEffect} from 'react'
 import drawBoundingBox from './drawBoundingBox'
+import './faceRecognition.css'
 
 const FaceRecognition = ({imageBox, boundingBox}) => {
 
@@ -17,7 +18,7 @@ const FaceRecognition = ({imageBox, boundingBox}) => {
     <div className='center pa-2' >
       <div className=''>
       <canvas ref={canvasRef} width="500" height="auto"></canvas>
-      <img style={{display: 'none'}} ref={imgRef} id='img'  src = {imageBox} alt = 'sent image'/>
+      <img  ref={imgRef} id='img'  src = {imageBox} alt = 'sent image'/>
       </div>
     </div>
   )

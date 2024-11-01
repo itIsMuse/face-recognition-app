@@ -8,33 +8,25 @@ import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
 
 const App = () => {
-
     
-
     const calculateFaceLocation = (data) => {
-        const [boundingBoxes, setBoundindBoxes] = useState([])
-        const image = document.getElementById('img') 
-        const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box
-        console.log(clarifaiData)
+            const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
+            const image = document.getElementById('img')
+            const imageWidth = image.width
+            const imageHeight = image.height
+            // Calculate x, y, width, height from the bounding box
+            const x = boundingBox.left_col * imageWidth;
+            const y = boundingBox.top_row * imageHeight;
+            const width = (boundingBox.right_col - boundingBox.left_col) * imageWidth;
+            const height = (boundingBox.bottom_row - boundingBox.top_row) * imageHeight;
         
-        const faceData = [{x: Number(clarifaiData.left_col * image.width),
-            y: Number(clarifaiData.top_row * image.height), width:Number((clarifaiData.right_col - clarifaiData.left_col) * image.width),height: Number((clarifaiData.bottom_row - clarifaiData.top_row) * image.height), 
-    }]
-
-
-        }
-        return calculated
+            return { x, y, width, height }; // Return the bounding box as an object
+          };
+        
+          const [boundingBox, setBoundingBox] = useState(calculateFaceLocation(clarifaiData));
+        
         // set the right location by multiply the giving coordinates to the width and height 
        
-
-    }
-    const boundingBox ={
-        x: 120,
-        y: 40,
-        width: 300,
-        height:200,
-    }
-
 
    
 
@@ -91,7 +83,7 @@ const setUpJSON = (imageUrl) => {
 
 
 const [inputUrl, setInputUrl] = useState('');
-const [box, setBox] = useState(null)
+// const [box, setBox] = useState(null)
 
 
 const onInputChange = (event) => { 
@@ -128,8 +120,8 @@ const onButtonSubmit = () => {
 
     // })
     .catch(error => console.log('error', error));
-
 }
+
   return (
     
       <div className='App'>
@@ -139,11 +131,13 @@ const onButtonSubmit = () => {
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition boundingBox = {boundingBox} imageBox = {inputUrl}/>
+        <FaceRecognition boundingBox = {[boundingBox]} imageBox = {inputUrl}/>
       </div>
   )
-
+}
 
 export default App
 
-// collect boundingbox data from clarifai  
+
+// look for the error that giving you the error
+// continue the collecting of data from clarifai  

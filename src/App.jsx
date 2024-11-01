@@ -6,11 +6,18 @@ import FaceRecognition from './components/FaceRecognition'
 import './App.css'
 import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
+import { data } from 'autoprefixer'
 
 const App = () => {
-    
+const collectData = (data) => {
+const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box;
+console.log(clarifaiData)
+return clarifaiData
+}
+    // get my information from clarifai 
+    //use that info to set calculate face location 
     const calculateFaceLocation = (data) => {
-            const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
+    console.log(collectData)
             const image = document.getElementById('img')
             const imageWidth = image.width
             const imageHeight = image.height
@@ -19,11 +26,13 @@ const App = () => {
             const y = boundingBox.top_row * imageHeight;
             const width = (boundingBox.right_col - boundingBox.left_col) * imageWidth;
             const height = (boundingBox.bottom_row - boundingBox.top_row) * imageHeight;
-        
-            return { x, y, width, height }; // Return the bounding box as an object
-          };
-        
-          const [boundingBox, setBoundingBox] = useState(calculateFaceLocation(clarifaiData));
+            
+            return { x, y, width, height };
+        }
+        const boundingBox = ()=>{
+      
+        }
+        ;
         
         // set the right location by multiply the giving coordinates to the width and height 
        
@@ -97,28 +106,7 @@ const onButtonSubmit = () => {
         'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
         setUpJSON(inputUrl))
     .then(response => response.json())
-    .then(result => calculateFaceLocation(result))
-    // .then(result => {
-    //     const regions = result.outputs[0].data.regions;
-    //     regions.forEach(region => {
-    //         // Accessing and rounding the bounding box values
-    //         const boundingBox = region.region_info.bounding_box;
-    //         const topRow = boundingBox.top_row.toFixed(3);
-    //         const leftCol = boundingBox.left_col.toFixed(3);
-    //         const bottomRow = boundingBox.bottom_row.toFixed(3);
-    //         const rightCol = boundingBox.right_col.toFixed(3);
-
-    //         region.data.concepts.forEach(concept => {
-    //             // Accessing and rounding the concept value
-    //             const name = concept.name;
-    //             const value = concept.value.toFixed(4);
-
-    //             console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
-    
-    //         });
-    //     });
-
-    // })
+    .then(result => calculateFaceLocation(collectData(result)))
     .catch(error => console.log('error', error));
 }
 
@@ -131,7 +119,7 @@ const onButtonSubmit = () => {
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition boundingBox = {[boundingBox]} imageBox = {inputUrl}/>
+        <FaceRecognition boundingBox = {boundingBox} imageBox = {inputUrl}/>
       </div>
   )
 }

@@ -9,15 +9,11 @@ import Rank from './components/Rank'
 import { data } from 'autoprefixer'
 
 const App = () => {
-const collectData = (data) => {
-const clarifaiData = data.outputs[0].data.regions[0].region_info.bounding_box;
-console.log(clarifaiData)
-return clarifaiData
-}
-    // get my information from clarifai 
-    //use that info to set calculate face location 
+
+
+  const [boundingBox, setBoundingBox] = useState({})
     const calculateFaceLocation = (data) => {
-    console.log(collectData)
+            const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
             const image = document.getElementById('img')
             const imageWidth = image.width
             const imageHeight = image.height
@@ -26,11 +22,8 @@ return clarifaiData
             const y = boundingBox.top_row * imageHeight;
             const width = (boundingBox.right_col - boundingBox.left_col) * imageWidth;
             const height = (boundingBox.bottom_row - boundingBox.top_row) * imageHeight;
-            
+            console.log(x, y, width, height)
             return { x, y, width, height };
-        }
-        const boundingBox = ()=>{
-      
         }
         ;
         
@@ -106,7 +99,10 @@ const onButtonSubmit = () => {
         'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
         setUpJSON(inputUrl))
     .then(response => response.json())
-    .then(result => calculateFaceLocation(collectData(result)))
+    .then(result => {
+        const faceLocation = calculateFaceLocation(result);
+        setBoundingBox(faceLocation)
+    })
     .catch(error => console.log('error', error));
 }
 
@@ -119,7 +115,7 @@ const onButtonSubmit = () => {
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition boundingBox = {boundingBox} imageBox = {inputUrl}/>
+        <FaceRecognition boundingBox = {[boundingBox]} imageBox = {inputUrl}/>
       </div>
   )
 }

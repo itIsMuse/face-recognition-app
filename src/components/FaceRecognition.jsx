@@ -17,7 +17,7 @@ const FaceRecognition = ({imageBox, boundingBox}) => {
   return (
     <div className='center pa-2' >
       <div className=''>
-      <canvas ref={canvasRef} width="500" height="auto"></canvas>
+      <canvas ref={canvasRef} width="500px" height="auto"></canvas>
       <img  ref={imgRef} id='img'  src = {imageBox} alt = 'sent image'/>
       </div>
     </div>

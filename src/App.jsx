@@ -102,6 +102,7 @@ const onButtonSubmit = () => {
     .then(result => {
         const faceLocation = calculateFaceLocation(result);
         setBoundingBox(faceLocation)
+        console.log(boundingBox)
     })
     .catch(error => console.log('error', error));
 }
@@ -123,5 +124,4 @@ const onButtonSubmit = () => {
 export default App
 
 
-// look for the error that giving you the error
-// continue the collecting of data from clarifai  
+// draw that stuff with date gotten from clarifai

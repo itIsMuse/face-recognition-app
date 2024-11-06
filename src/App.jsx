@@ -6,14 +6,14 @@ import FaceRecognition from './components/FaceRecognition'
 import './App.css'
 import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
-import { data } from 'autoprefixer'
 
 const App = () => {
 
 
   const [boundingBox, setBoundingBox] = useState({})
     const calculateFaceLocation = (data) => {
-            const boundingBox = data.outputs[0].data.regions[0].region_info.bounding_box;
+            const regions = data.outputs[0].data.regions;
+            regions.map(region => {const boundingBox = region.region_info.boundingBox})
             const image = document.getElementById('img')
             const imageWidth = image.width
             const imageHeight = image.height

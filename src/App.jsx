@@ -13,21 +13,23 @@ const App = () => {
   const [boundingBox, setBoundingBox] = useState({})
     const calculateFaceLocation = (data) => {
             const regions = data.outputs[0].data.regions;
-            regions.map(region => {const boundingBox = region.region_info.boundingBox})
             const image = document.getElementById('img')
             const imageWidth = image.width
             const imageHeight = image.height
             // Calculate x, y, width, height from the bounding box
-            const x = boundingBox.left_col * imageWidth;
-            const y = boundingBox.top_row * imageHeight;
-            const width = (boundingBox.right_col - boundingBox.left_col) * imageWidth;
-            const height = (boundingBox.bottom_row - boundingBox.top_row) * imageHeight;
-            console.log(x, y, width, height)
-            return { x, y, width, height };
+            
+            return regions.map(box =>{
+                const boundingBox = box.region_info.bounding_box
+                console.log(boundingBox)
+                return{
+                     x : boundingBox.left_col * imageWidth,
+             y : boundingBox.top_row * imageHeight,
+             width : (boundingBox.right_col - boundingBox.left_col) * imageWidth,
+             height : (boundingBox.bottom_row - boundingBox.top_row) * imageHeight,
+                }
+            })
         }
         ;
-        
-        // set the right location by multiply the giving coordinates to the width and height 
        
 
    

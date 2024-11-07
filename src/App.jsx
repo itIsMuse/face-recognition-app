@@ -20,7 +20,6 @@ const App = () => {
             
             return regions.map(box =>{
                 const boundingBox = box.region_info.bounding_box
-                console.log(boundingBox)
                 return{
                      x : boundingBox.left_col * imageWidth,
              y : boundingBox.top_row * imageHeight,
@@ -104,7 +103,6 @@ const onButtonSubmit = () => {
     .then(result => {
         const faceLocation = calculateFaceLocation(result);
         setBoundingBox(faceLocation)
-        console.log(boundingBox)
     })
     .catch(error => console.log('error', error));
 }
@@ -118,7 +116,7 @@ const onButtonSubmit = () => {
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition boundingBox = {[boundingBox]} imageBox = {inputUrl}/>
+        <FaceRecognition boundingBox = {boundingBox} imageBox = {inputUrl}/>
       </div>
   )
 }

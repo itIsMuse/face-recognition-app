@@ -110,12 +110,16 @@ const onButtonSubmit = () => {
 }
 const [route, setRoute] = useState('signin')
 
+const onRouteChange = (route)=>{
+    setRoute(route)
+}
+
   return (
     
       <div className='App'>
         <ParticlesComponent id = 'particle'/>
-        <Nav />
-{ route === 'signin'? <SignIn/>:
+        <Nav onRouteChange = {onRouteChange('signin')}  />
+{ route === 'signin'? <SignIn onRouteChange={onRouteChange('home')}/>:
     <div>
         <Logo />
         <Rank />

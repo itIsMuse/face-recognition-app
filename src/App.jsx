@@ -8,6 +8,7 @@ import './App.css'
 import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
 import SignIn from './SignIn form/SignIn'
+import Register from './components/Register/Register';
 
 const App = () => {
 
@@ -118,9 +119,9 @@ const onRouteChange = (route)=>{
     
       <div className='App'>
         <ParticlesComponent id = 'particle'/>
-        <Nav onRouteChange = {onRouteChange('signin')}  />
-{ route === 'signin'? <SignIn onRouteChange={onRouteChange('home')}/>:
-    <div>
+        <Nav onRouteChange = {() => onRouteChange('signin')} Register={() => {onRouteChange('register')}} />
+{ route === 'signin'? <SignIn onRouteChange={() => onRouteChange('home')}/>: route === 'register'? <Register onRouteChange = {() => onRouteChange('register')}/>:
+   <div>
         <Logo />
         <Rank />
         <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
@@ -135,4 +136,4 @@ const onRouteChange = (route)=>{
 export default App
 
 
-// draw that stuff with date gotten from clarifai
+// rewatch and understand the whole process of routing again and try one more time 

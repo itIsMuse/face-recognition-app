@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, NavLink} from 'react-router-dom';
 import Nav from './components/Nav/Nav'
 import Logo from './components/Logo/Logo'
 import InputText from './components/InputForm/InputText'
@@ -109,26 +109,30 @@ const onButtonSubmit = () => {
     })
     .catch(error => console.log('error', error));
 }
-const [route, setRoute] = useState('signin')
 
-const onRouteChange = (route)=>{
-    setRoute(route)
-}
 
   return (
-    
-      <div className='App'>
-        <ParticlesComponent id = 'particle'/>
-        <Nav onRouteChange = {() => onRouteChange('signin')} Register={() => {onRouteChange('register')}} />
-{ route === 'signin'? <SignIn onRouteChange={() => onRouteChange('home')}/>: route === 'register'? <Register onRouteChange = {() => onRouteChange('register')}/>:
-   <div>
-        <Logo />
-        <Rank />
-        <InputText onInputChange = {onInputChange} onButtonSubmit = {onButtonSubmit}/>
 
-        <FaceRecognition boundingBox = {boundingBox} imageBox = {inputUrl}/>
-</div>}
-        
+      <div className="App">
+        <ParticlesComponent id="particle" />
+        <Nav />
+
+        <Routes>
+          <Route path="/" element={<Navigate to="/signin" />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/home"
+            element={
+              <div>
+                <Logo />
+                <Rank />
+                <InputText onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
+                <FaceRecognition boundingBox={boundingBox} imageBox={inputUrl} />
+              </div>
+            }
+          />
+        </Routes>
       </div>
   )
 }

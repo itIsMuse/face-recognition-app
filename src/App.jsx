@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, NavLink} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, NavLink, useNavigate} from 'react-router-dom';
 import Nav from './components/Nav/Nav'
 import Logo from './components/Logo/Logo'
 import InputText from './components/InputForm/InputText'
@@ -10,10 +10,14 @@ import Rank from './components/Rank'
 import SignIn from './SignIn form/SignIn'
 import Register from './components/Register/Register';
 
+
 const App = () => {
 
 
-  const [boundingBox, setBoundingBox] = useState({})
+const navigate = useNavigate()
+    const [boundingBox, setBoundingBox] = useState({})
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
     const calculateFaceLocation = (data) => {
             const regions = data.outputs[0].data.regions;
             const image = document.getElementById('img')
@@ -110,17 +114,21 @@ const onButtonSubmit = () => {
     .catch(error => console.log('error', error));
 }
 
+const handleAuthentication = () => {
+setIsAuthenticated(true)
+navigate('/home')
+}
 
   return (
 
       <div className="App">
         <ParticlesComponent id="particle" />
-        <Nav />
+        <Nav isAuthenticated={isAuthenticated}/>
 
         <Routes>
           <Route path="/" element={<Navigate to="/signin" />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication}/>} />
+          <Route path="/register" element={<Register onAuthenticate = {handleAuthentication} />} />
           <Route
             path="/home"
             element={

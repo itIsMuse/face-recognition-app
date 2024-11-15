@@ -1,7 +1,9 @@
-import largeNumber from "./script2.js";
+import fs from 'fs';
 
-const a = largeNumber;
-const b = 5;
-
-console.log(a + b)
-
+fs.readFile('path/to/file.txt', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(data);
+  });

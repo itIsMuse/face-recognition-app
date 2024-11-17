@@ -1,8 +1,5 @@
-import http from 'http'
+import express from 'express'
 
-const server = http.createServer((request, response) => {
-response.setHeader('Content-Type', 'text/html');
-response.end('<h1> Helloooooo</h1>')
-    })
+const app = express()
 
-server.listen(3000)
+app.listen(4000)

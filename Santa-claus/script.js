@@ -15,4 +15,23 @@ function question1(){
   })
 }
 
-question1()
+// question1()
+
+function question2(){
+  fs.readFile('./hello.txt', (err, data) => {
+    const direction = data.toString()
+    const directionToArray = direction.split('')
+    let  accumulator = 0
+    let counter = 0 
+    const answer = directionToArray.some((symbol) => {
+      if(symbol === '('){
+         accumulator += 1
+      } else if (symbol === ')'){
+        accumulator -= 1
+      }  counter++
+      return accumulator < 0
+    })
+    console.log(`floor entered at ${counter}`)
+})}
+
+question2()

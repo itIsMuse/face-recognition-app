@@ -93,7 +93,7 @@ const setUpJSON = (imageUrl) => {
 
 
 const [inputUrl, setInputUrl] = useState('');
-// const [box, setBox] = useState(null)
+const [box, setBox] = useState(null)
 
 
 const onInputChange = (event) => { 

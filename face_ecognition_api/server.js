@@ -22,9 +22,24 @@ const database = {
 }]}
 
 app.get('/', (req, res)=> {
-    res.send('this is working')
+    res.send(database)
 })
 
+app.get('/profile/:id', (req, res)=>{
+    const {id} = req.params
+    database.users.forEach(item =>{
+        let found = false 
+        if(item.id === id){
+            found = true
+            return res.json(item)
+        }
+        if(!found){
+            return res.status(404).send('No such user')
+        }
+    }
+    )
+ 
+})
 
 app.post('/signin', (req, res) => {
     if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
@@ -45,11 +60,28 @@ app.post('/register', (req, res) => {
                 'Date-joined': new Date
         }
     )
-    res.send (database)
+    res.send (database.users[database.users.length - 1])
 })
 
-app.listen(4500, () => {
-    console.log(database.users)
+app.post('/image', (req, res) => {
+    const {id} = req.body
+    database.users.forEach(user =>{
+        let found = false 
+        if(user.id === id){
+            found = true
+            user.entries ++
+            res.json(user.entries)
+        }
+        if(!found){
+         res.status(404).send('No such user')
+        }
+    }
+    )
+
+})
+
+app.listen(4500, (err) => {
+    console.log(err)
 })
 
 //

@@ -1,11 +1,11 @@
 import express from 'express'
-
+import bcrypt from 'bcrypt-nodejs'
 const app = express()
 app.use(express.json())
 
 const database = {
     users:[
-    {'id' : '123',
+    {'id' : 123,
     'name': 'museya',
     'email': 'oyeniranshock@gmail.com',
     'password': '1Temitope',
@@ -13,7 +13,7 @@ const database = {
     'Date-joined': new Date
 },
 {
-    'id' : '124',
+    'id' : 124,
     'name': 'museya1',
     'email': 'oyeniranshock@gmail1.com',
     'password': '1Temitope1',
@@ -51,8 +51,9 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body
+   
     database.users.push(
-            {'id' : '123',
+            {'id' : 125,
                 'name': name,
                 'email': email,
                 'password': password,
@@ -70,7 +71,7 @@ app.post('/image', (req, res) => {
         if(user.id === id){
             found = true
             user.entries ++
-            res.json(user.entries)
+         return res.json(user.entries)
         }
         if(!found){
          res.status(404).send('No such user')
@@ -83,5 +84,4 @@ app.post('/image', (req, res) => {
 app.listen(4500, (err) => {
     console.log(err)
 })
-
-//
+// connect front end to back-end 

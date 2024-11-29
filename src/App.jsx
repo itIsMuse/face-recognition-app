@@ -9,14 +9,32 @@ import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
 import SignIn from './SignIn form/SignIn'
 import Register from './components/Register/Register';
+import cors from 'cors'
 
 
 const App = () => {
 
 
+
 const navigate = useNavigate()
     const [boundingBox, setBoundingBox] = useState({})
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch('http://localhost:4500/');
+                    const data = await response.json();
+                    console.log(data); // Do something with the fetched data
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            };
+    
+            fetchData(); // Call the function when the component mounts
+        }, [])
+   
 
     const calculateFaceLocation = (data) => {
             const regions = data.outputs[0].data.regions;

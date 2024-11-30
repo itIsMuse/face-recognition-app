@@ -9,8 +9,6 @@ import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
 import SignIn from './SignIn form/SignIn'
 import Register from './components/Register/Register';
-import cors from 'cors'
-
 
 const App = () => {
 
@@ -30,7 +28,7 @@ const navigate = useNavigate()
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
-            };
+            }
     
             fetchData(); // Call the function when the component mounts
         }, [])
@@ -166,4 +164,4 @@ navigate('/home')
 export default App
 
 
-// rewatch and understand the whole process of routing again and try one more time 
+// youre trying t understand the Signin form logic more Or just ask chatgpt to do it for you :) and understand what chatgpt is doing 

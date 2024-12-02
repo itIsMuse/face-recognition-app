@@ -17,6 +17,7 @@ const App = () => {
 const navigate = useNavigate()
     const [boundingBox, setBoundingBox] = useState({})
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [route, setRoute] = useState('')
 
     
         useEffect(() => {
@@ -135,6 +136,11 @@ setIsAuthenticated(true)
 navigate('/home')
 }
 
+const onRouteChange = (route) => {
+setRoute(route)
+navigate(route)
+}
+
   return (
 
       <div className="App">
@@ -143,7 +149,7 @@ navigate('/home')
 
         <Routes>
           <Route path="/" element={<Navigate to="/signin" />} />
-          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication}/>} />
+          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication} onRouteChange={onRouteChange} />} />
           <Route path="/register" element={<Register onAuthenticate = {handleAuthentication} />} />
           <Route
             path="/home"

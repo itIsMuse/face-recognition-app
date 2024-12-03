@@ -131,14 +131,23 @@ const onButtonSubmit = () => {
     .catch(error => console.log('error', error));
 }
 
-const handleAuthentication = () => {
-setIsAuthenticated(true)
-navigate('/home')
-}
+// const handleAuthentication = () => {
+// setIsAuthenticated(true)
+// navigate('/home')
+// }
 
-const onRouteChange = (route) => {
-setRoute(route)
-navigate(route)
+const handleAuthentication = () => {
+    setIsAuthenticated(true); // Update the authentication state
+    navigate('/home'); // Navigate to the home route
+  };
+
+// const onRouteChange = (route) => {
+// setRoute(route)
+// navigate(route)
+// }
+
+const handleRegister = ()=>{
+    navigate('/signin') 
 }
 
   return (
@@ -149,8 +158,8 @@ navigate(route)
 
         <Routes>
           <Route path="/" element={<Navigate to="/signin" />} />
-          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication} onRouteChange={onRouteChange} />} />
-          <Route path="/register" element={<Register onAuthenticate = {handleAuthentication} />} />
+          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication}  />} />
+          <Route path="/register" element={<Register handleRegister={handleRegister} onAuthenticate = {handleAuthentication} />} />
           <Route
             path="/home"
             element={

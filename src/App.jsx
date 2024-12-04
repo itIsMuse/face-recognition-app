@@ -19,13 +19,22 @@ const navigate = useNavigate()
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [route, setRoute] = useState('')
 
+    const [userinfo, setUserinfo] = useState({
+                "id" : "",
+                'name': "",
+                'email': "",
+                'password': "",
+                'entries': 0,
+                'Date-joined': new Date
+    })
+
     
         useEffect(() => {
             const fetchData = async () => {
                 try {
                     const response = await fetch('http://localhost:4500/');
                     const data = await response.json();
-                    console.log(data); // Do something with the fetched data
+                    console.log(data)
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }

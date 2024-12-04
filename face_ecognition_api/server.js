@@ -44,19 +44,40 @@ app.get('/profile/:id', (req, res)=>{
  
 })
 
+// app.post('/signin', (req, res) => {
+
+//     const {email, password} = req.body
+//     database.users.find(user => {
+//     if(email === user.email && password === user.password){
+//        return  res.json('success')
+//     }else {
+//        return  res.status(400).json('error logging')
+//     }
+// })})
+
+
 app.post('/signin', (req, res) => {
-    if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
-       return  res.json('success')
-    }else {
-       return  res.status(400).json('error logging')
+    const { email, password } = req.body;
+
+    const user = database.users.find(user => user.email === email && user.password === password);
+
+    if (user) {
+        return res.json(user);
+    } else {
+        return res.status(400).json('error logging in');
     }
-})
+});
+
 
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body
+
+    const lastUser = database.users[database.users.length - 1]; // Get the last user object
+    const newId = lastUser ? lastUser.id + 1 : 1; // If there's no user, start at 1
+
    
     database.users.push(
-            {'id' : 125,
+            {'id' : newId,
                 'name': name,
                 'email': email,
                 'password': password,
@@ -87,4 +108,3 @@ app.post('/image', (req, res) => {
 app.listen(4500, (err) => {
     console.log(err)
 })
-// connect front end to back-end 

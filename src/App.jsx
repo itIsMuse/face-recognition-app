@@ -188,4 +188,5 @@ const handleRegister = ()=>{
 export default App
 
 
-// youre trying t understand the Signin form logic more Or just ask chatgpt to do it for you :) and understand what chatgpt is doing 
+//youre tryuing to stop using 'success' for the check on the frontend and now start using the user object 
+// you also want to integrate the whole 

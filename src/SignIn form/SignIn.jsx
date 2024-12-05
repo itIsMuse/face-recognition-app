@@ -28,8 +28,9 @@ const SignIn = ({onRouteChange, onAuthenticate}) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data === '') {
-          onAuthenticate(); // Call the correct authentication function
+        if (data.success) {
+          onAuthenticate();
+          console.log('user-info', data) // Call the correct authentication function
         } else {
           console.error('Error: Invalid credentials');
         }

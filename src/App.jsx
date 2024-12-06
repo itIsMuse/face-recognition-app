@@ -28,6 +28,19 @@ const navigate = useNavigate()
                 'Date-joined': new Date
     })
 
+    const loadUser = (data)=>{
+        userinfo: setUserinfo({
+          "id": data.id,
+          "name": data.name,
+          "email": data.email,
+          "password": data.password,
+          "entries": data.entries,
+          "Date-joined": data.Date
+         })
+    console.log(loadUser())
+
+    }
+
     
         useEffect(() => {
             const fetchData = async () => {
@@ -159,6 +172,8 @@ const handleRegister = ()=>{
     navigate('/signin') 
 }
 
+
+
   return (
 
       <div className="App">
@@ -167,14 +182,14 @@ const handleRegister = ()=>{
 
         <Routes>
           <Route path="/" element={<Navigate to="/signin" />} />
-          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication}  />} />
+          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication} loadUser = {loadUser} />} />
           <Route path="/register" element={<Register handleRegister={handleRegister} onAuthenticate = {handleAuthentication} />} />
           <Route
             path="/home"
             element={
               <div>
                 <Logo />
-                <Rank />
+                <Rank name = {loadUser.userinfo} entries = {loadUser.entries}/>
                 <InputText onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
                 <FaceRecognition boundingBox={boundingBox} imageBox={inputUrl} />
               </div>

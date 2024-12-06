@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignIn = ({onRouteChange, onAuthenticate}) => {
+const SignIn = ({onRouteChange, onAuthenticate, loadUser}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // For programmatic navigation
@@ -34,6 +34,7 @@ const SignIn = ({onRouteChange, onAuthenticate}) => {
       })
       .then((userInfo) => {
         if (userInfo) {
+          loadUser(userInfo)
           onAuthenticate();
           console.log('user-info', userInfo); // Log user info
         }

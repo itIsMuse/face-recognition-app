@@ -60,9 +60,9 @@ app.post('/signin', (req, res) => {
     const { email, password } = req.body;
 
     const user = database.users.find(user => user.email === email && user.password === password);
-
     if (user) {
-        return res.json(database.users[user])
+        return res.json(user)
+
     } else {
         return res.status(400).json('error logging in');
     }

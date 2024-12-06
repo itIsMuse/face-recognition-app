@@ -26,19 +26,23 @@ const SignIn = ({onRouteChange, onAuthenticate}) => {
         password: password
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Invalid credentials'); // Handle non-2xx responses
+        }
+        return response.json();
+      })
+      .then((userInfo) => {
+        if (userInfo) {
           onAuthenticate();
-          console.log('user-info', data) // Call the correct authentication function
-        } else {
-          console.error('Error: Invalid credentials');
+          console.log('user-info', userInfo); // Log user info
         }
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-  ;
+  };
+  
   
   
   
@@ -59,7 +63,7 @@ const SignIn = ({onRouteChange, onAuthenticate}) => {
   //     }
   //   })
 
-  }
+  // }
   // const handleSubmit = (event) => {
   //   event.preventDefault()
   //   fetch('http://localhost:4500/signin', () => {

@@ -150,6 +150,8 @@ const onButtonSubmit = () => {
         setBoundingBox(faceLocation)
     })
     .catch(error => console.log('error', error));
+
+    userinfo.entries ++
 }
 
 // const handleAuthentication = () => {

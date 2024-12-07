@@ -1,12 +1,12 @@
 import React from 'react'
 
 const Rank = ({name, entries}) => {
-  console.log(name)
     const rank = `Your rank is ${entries}`
+    const username = `Hi, ${name}`
   return (
   <>
     <div className='text-lg center '>
-          <p>Hi user `${name}`</p>  
+          <p>{username}</p>  
     </div>
     <div className='text-lg center '>
           {rank}  

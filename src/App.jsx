@@ -29,7 +29,7 @@ const navigate = useNavigate()
     })
 
     const loadUser = (data)=>{
-        userinfo: setUserinfo({
+        setUserinfo({
           "id": data.id,
           "name": data.name,
           "email": data.email,
@@ -37,8 +37,7 @@ const navigate = useNavigate()
           "entries": data.entries,
           "Date-joined": data.Date
          })
-    console.log(loadUser())
-
+console.log(userinfo)
     }
 
     
@@ -189,7 +188,7 @@ const handleRegister = ()=>{
             element={
               <div>
                 <Logo />
-                <Rank name = {loadUser.userinfo} entries = {loadUser.entries}/>
+                <Rank name = {userinfo.name} entries = {userinfo.entries}/>
                 <InputText onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
                 <FaceRecognition boundingBox={boundingBox} imageBox={inputUrl} />
               </div>
@@ -203,5 +202,5 @@ const handleRegister = ()=>{
 export default App
 
 
-//youre tryuing to stop using 'success' for the check on the frontend and now start using the user object 
+
 // you also want to integrate the whole 

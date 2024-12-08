@@ -205,4 +205,4 @@ export default App
 
 
 
-// you also want to integrate the whole 
+//  I want to keep it authenticated and not signed out after evenry reload currently on databses

@@ -162,7 +162,7 @@ const onButtonSubmit = () => {
 const handleAuthentication = () => {
     setIsAuthenticated(true); // Update the authentication state
     navigate('/home'); // Navigate to the home route
-  };
+  };    
 
 // const onRouteChange = (route) => {
 // setRoute(route)
@@ -206,3 +206,7 @@ export default App
 
 
 //  I want to keep it authenticated and not signed out after evenry reload currently on databses
+// - I thiink that would come after the database stuff
+// still fightning with my database ooosudo -i -u museya
+ 
+// trying to understand the whole concept of database ... it will all work out , next activity would be to recreate my user

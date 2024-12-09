@@ -205,8 +205,5 @@ export default App
 
 
 
-//  I want to keep it authenticated and not signed out after evenry reload currently on databses
-// - I thiink that would come after the database stuff
-// still fightning with my database ooosudo -i -u museya
- 
-// trying to understand the whole concept of database ... it will all work out , next activity would be to recreate my user
+// databases is getting understandable and now working , I learnt that when working with databses you need to be using the semi colon (;)
+// its already working and i think i am creating users with chatgpt thats good, i am starting from brew to apt conversion page in chatgpt tomorrow

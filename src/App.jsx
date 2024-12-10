@@ -204,6 +204,5 @@ const handleRegister = ()=>{
 export default App
 
 
-
-// databases is getting understandable and now working , I learnt that when working with databses you need to be using the semi colon (;)
-// its already working and i think i am creating users with chatgpt thats good, i am starting from brew to apt conversion page in chatgpt tomorrow
+// database really understandable now although syntax still needs chatgpt 
+// its all working thanks be to God, course progress now at 80%

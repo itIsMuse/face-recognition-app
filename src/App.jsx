@@ -204,6 +204,6 @@ const handleRegister = ()=>{
 export default App
 
 
-// database really understandable now although syntax still needs chatgpt 
-// its all working thanks be to God, course progress now at 80%
-// added to my databases 
+
+// remember youre seeing the project from three different computers
+// you create your database first from the details you know you will need 

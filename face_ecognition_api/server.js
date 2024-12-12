@@ -7,14 +7,16 @@ const db = knex({
     client: 'pg',
     connection: {
       host: '127.0.0.1',
-      port: 3306,
+      port: 5432,
       user: 'oluwalonmuseya',
-      password: '',
-      database: 'smart-brain',
+      password: '1Temito',
+      database: 'smart_brain',
     },
   });
 
-  console.log(db.select('*').from('users'))
+  db.select("*").from("login").then(data => {
+    console.log(data)
+  })
 
 const app = express()
 app.use(express.json())
@@ -88,18 +90,15 @@ app.post('/register', (req, res) => {
 
     const lastUser = database.users[database.users.length - 1]; // Get the last user object
     const newId = lastUser ? lastUser.id + 1 : 1; // If there's no user, start at 1
-
-   
-    database.users.push(
-            {'id' : newId,
-                'name': name,
-                'email': email,
-                'password': password,
-                'entries': 0,
-                'Date-joined': new Date
-        }
+    db('users')
+    .returning('*')
+    .insert({
+        name: name ,
+        email: email,
+        date_joined: new Date
+    }).then(user => res.json(user[0])).catch(
+        err => res.status(400).json('unable to register')
     )
-    res.send (database.users[database.users.length - 1])
 })
 
 app.post('/image', (req, res) => {

@@ -170,7 +170,7 @@ const handleAuthentication = () => {
 // }
 
 const handleRegister = ()=>{
-    navigate('/signin') 
+    handleAuthentication()
 }
 
 

@@ -207,3 +207,4 @@ export default App
 
 // remember youre seeing the project from three different computers
 // you create your database first from the details you know you will need 
+// i am a bit worried i may not be able to do it myself without help from chat and google but arent we all they main secret is to creat so many projects that it is second nature and how do i do that ? by getting a job in tech to learn create this first and then the next 

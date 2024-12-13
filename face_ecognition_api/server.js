@@ -46,19 +46,18 @@ app.get('/', (req, res)=> {
 
 app.get('/profile/:id', (req, res)=>{
     const {id} = req.params
-    database.users.forEach(item =>{
-        let found = false 
-        if(item.id === id){
-            found = true
-            return res.json(item)
-        }
-        if(!found){
-            return res.status(404).send('No such user')
+    db.select('*').from('users').where({id}).then(user => {
+        if(user.length){
+            res.send(user[0])
+        }else{
+            res.status(404).send('no such user') 
         }
     }
     )
+        
+    }
+    )
  
-})
 
 // app.post('/signin', (req, res) => {
 
@@ -101,23 +100,18 @@ app.post('/register', (req, res) => {
     )
 })
 
-app.post('/image', (req, res) => {
+app.put('/image', (req, res) => {
     const {id} = req.body
-    database.users.forEach(user =>{
-        let found = false 
-        if(user.id === id){
-            found = true
-            user.entries ++
-         return res.json(user.entries)
-        }
-        if(!found){
-         res.status(404).send('No such user')
-        }
-    }
-    )
-
-})
-
+    db('users')
+    .where('id', '=', id)
+    .increment('entries', 1) // Increment the 'entries' column by 1 in the database
+    .returning('entries') // Return the updated 'entries' value
+    .then(entries => {
+        console.log(entries) // Send 404 if no user is found
+        })
+    })
 app.listen(4500, (err) => {
     console.log(err)
 })
+
+// today was quite different than yesterday but the deed is done thanks be to God i completeed what i wanted , i have been shown how to update entries 

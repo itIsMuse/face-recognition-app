@@ -74,26 +74,20 @@ app.get('/profile/:id', (req, res)=>{
 
 
 app.post('/signin', (req, res) => {
-    const { email, password } = req.body;
+    const {email, password_hash} = req
+    db.select('email', 'password_hash').from('login').then(data => console.log(data))
 
-    const user = database.users.find(user => user.email === email && user.password === password);
-    if (user) {
-        return res.json(user)
-
-    } else {
-        return res.status(400).json('error logging in');
-    }
 });
 
 
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body
-    const password_hash= bcrypt.hashSync(password)
+    const password_hash = bcrypt.hashSync(password)
     
     db.transaction(trx => {
         trx.insert({
            email: email,
-            password_hash: password_hash
+            password_hash : password_hash
         }).into('login').
         returning('email').then(
             loginEmail =>
@@ -101,12 +95,12 @@ app.post('/register', (req, res) => {
                 .returning('*')
                 .insert({
                     name: name ,
-                    email: loginEmail,
+                    email: loginEmail[0].email,
                     date_joined: new Date
                 }).then(user => res.json(user[0])).catch(
                     err => res.status(400).json('unable to register')
         )
-        )
+        ).then(trx.commit).catch(trx.rollback).then(trx.commit).catch(trx.rollback)
     })
 })
 
@@ -124,4 +118,4 @@ app.listen(4500, (err) => {
     console.log(err)
 })
 
-// today was quite different than yesterday but the deed is done thanks be to God i completeed what i wanted , i have been shown how to update entries its working but it needs to be better i need to rewatch that video
+//i now understand what they meant by the breaking changes, anyway it all worked out thanks be to God . MOving on, i am on the sign in page stuff wait i can ask this thing to organise the steps i used to create my app na 

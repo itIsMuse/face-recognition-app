@@ -16,9 +16,7 @@ const db = knex({
     },
   });
 
-  db.select("*").from("login").then(data => {
-    console.log(data)
-  })
+
 
 const app = express()
 app.use(express.json())
@@ -74,10 +72,15 @@ app.get('/profile/:id', (req, res)=>{
 
 
 app.post('/signin', (req, res) => {
-    const {email, password_hash} = req
-    db.select('email', 'password_hash').from('login').then(data => console.log(data))
-
-});
+  const {email, password_hash, name} = req.body
+    db.select('*').from('login').where('email', '=', email).then(user => {
+        const isValid = bcrypt.compareSync(password_hash, user[0].password_hash) 
+        if(isValid){
+            return res.send(user[0])
+        } else{
+            return res.status(404).send('wrong credentials')
+        }
+    }).catch(err => console.log(err))})
 
 
 app.post('/register', (req, res) => {

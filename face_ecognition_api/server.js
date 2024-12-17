@@ -22,27 +22,8 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// const database = {
-//     users:[
-//     {'id' : 123,
-//     'name': 'museya',
-//     'email': 'oyeniranshock@gmail.com',
-//     'password': '1Temitope',
-//     'entries': 0,
-//     'Date-joined': new Date
-// },
-// {
-//     'id' : 124,
-//     'name': 'museya1',
-//     'email': 'oyeniranshock@gmail1.com',
-//     'password': '1Temitope1',
-//     'entries': 0,
-//     'Date-joined': new Date
-// }]}
 
-app.get('/', (req, res)=> {
-    res.send(database)
-})
+
 
 app.get('/profile/:id', (req, res)=>{
     const {id} = req.params
@@ -59,28 +40,35 @@ app.get('/profile/:id', (req, res)=>{
     )
  
 
-// app.post('/signin', (req, res) => {
-
-//     const {email, password} = req.body
-//     database.users.find(user => {
-//     if(email === user.email && password === user.password){
-//        return  res.json('success')
-//     }else {
-//        return  res.status(400).json('error logging')
-//     }
-// })})
-
 
 app.post('/signin', (req, res) => {
-  const {email, password_hash, name} = req.body
-    db.select('*').from('login').where('email', '=', email).then(user => {
-        const isValid = bcrypt.compareSync(password_hash, user[0].password_hash) 
-        if(isValid){
-            return res.send(user[0])
-        } else{
-            return res.status(404).send('wrong credentials')
+    const { email, password } = req.body;
+  
+    db.select('email', 'password_hash')
+      .from('login')
+      .where('email', '=', email)
+      .then(user => {
+        if (user.length) { // Check if the user exists
+          const isValid = bcrypt.compareSync(password, user[0].password_hash);
+          if (isValid) {
+            return db
+              .select('*')
+              .from('users')
+              .where('email', '=', email)
+              .then(user => res.json(user[0]))
+              .catch(err => res.status(400).json('unable to get user'));
+          } else {
+            // Wrong password
+            res.status(400).json('wrong credentials');
+          }
+        } else {
+          // Email not found
+          res.status(400).json('wrong credentials');
         }
-    }).catch(err => console.log(err))})
+      })
+      .catch(err => res.status(400).json('error logging in'));
+  });
+  
 
 
 app.post('/register', (req, res) => {
@@ -121,4 +109,4 @@ app.listen(4500, (err) => {
     console.log(err)
 })
 
-//i now understand what they meant by the breaking changes, anyway it all worked out thanks be to God . MOving on, i am on the sign in page stuff wait i can ask this thing to organise the steps i used to create my app na 
+//i need to work on that whole navlink stuff i need to consult chatgpt regarding it  

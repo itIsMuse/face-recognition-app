@@ -2,14 +2,17 @@ import React from 'react'
 import { Link, NavLink } from "react-router-dom"
 
 
-const Nav = ({isAuthenticated}) => {
+const Nav = ({removeAuthentication, signedIn, handleSignInOff, isAuthenticated}) => {
+
+  
 
   return (
-    isAuthenticated && Link === '/home'?  <nav>
+    signedIn === true ?  <nav>
     <ul style={{ display: "flex", justifyContent: "flex-end",  listStyle: "none", padding: 0 }}>
       <li style={{ marginRight: "20px" }}>
         <NavLink
           to="/signin"
+          onClick={() => {handleSignInOff().then(removeAuthentication())}}
           style={({ isActive }) => ({
             fontWeight: isActive ? "bold" : "normal",
             color: isActive ? "white" : "white",

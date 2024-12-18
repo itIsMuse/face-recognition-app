@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignIn = ({onRouteChange, onAuthenticate, loadUser}) => {
+const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // For programmatic navigation
@@ -30,6 +30,7 @@ const SignIn = ({onRouteChange, onAuthenticate, loadUser}) => {
         if (!response.ok) {
           throw new Error('Invalid credentials'); // Handle non-2xx responses
         }
+        signedIn()
         return response.json();
       })
       .then((userInfo) => {
@@ -42,42 +43,14 @@ const SignIn = ({onRouteChange, onAuthenticate, loadUser}) => {
       .catch((error) => {
         console.error('Error:', error);
       });
+
+      if(SignIn){
+        return console.log('signed')
+      } else{
+        return console.log('not signed')
+      }
   };
   
-  
-  
-  
-  // const handleSubmit = () => {
-  //   fetch('http://localhost:4500/signin', {
-  //     "method": "POST",
-  //     "headers": { "Content-Type":"application/json"},
-  //     "body" : JSON.stringify({
-  //       "email": email,
-  //       "password": password
-  //     })
-  //   }).then(response => response.json()).then(data => {
-  //     if (data === 'success'){
-  //        onAuthenticate()
-  //     }else{
-  //       console.log('Error Logging in ')
-
-  //     }
-  //   })
-
-  // }
-  // const handleSubmit = (event) => {
-  //   event.preventDefault()
-  //   fetch('http://localhost:4500/signin', () => {
-
-  //   // Simulate a successful login check (replace with real auth logic)
-  //   if (email === 'databaseemail' && password === "password123") {
-  //     onAuthenticate(); // Call the parent function to set authenticated state
-  //     navigate("/home"); // Redirect to home after successful sign-in
-  //   } else {
-  //     alert("Invalid login credentials");
-  //   }})
-  //   // or i would print login if the server brings out success
-  // };
   return (
 <form className="max-w-sm mx-auto shadow-xl">
   <div className='mx-10 mb-5'>

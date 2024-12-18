@@ -18,6 +18,7 @@ const navigate = useNavigate()
     const [boundingBox, setBoundingBox] = useState({})
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [route, setRoute] = useState('')
+    const [signedIn, setSignedIn] = useState('false')
 
     const [userinfo, setUserinfo] = useState({
                 "id" : "",
@@ -41,20 +42,7 @@ console.log(userinfo)
     }
 
     
-        useEffect(() => {
-            const fetchData = async () => {
-                try {
-                    const response = await fetch('http://localhost:4500/');
-                    const data = await response.json();
-                    console.log(data)
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
-            }
-    
-            fetchData(); // Call the function when the component mounts
-        }, [])
-   
+       
 
     const calculateFaceLocation = (data) => {
             const regions = data.outputs[0].data.regions;
@@ -154,23 +142,27 @@ const onButtonSubmit = () => {
     userinfo.entries ++
 }
 
-// const handleAuthentication = () => {
-// setIsAuthenticated(true)
-// navigate('/home')
-// }
+
 
 const handleAuthentication = () => {
     setIsAuthenticated(true); // Update the authentication state
     navigate('/home'); // Navigate to the home route
   };    
 
-// const onRouteChange = (route) => {
-// setRoute(route)
-// navigate(route)
-// }
+  const removeAuthentication = ()=>{
+    setIsAuthenticated(false)
+  }
+
 
 const handleRegister = ()=>{
     handleAuthentication()
+}
+
+const handleSignInOn = ()=> {
+    setSignedIn(true)
+}
+const handleSignInOff = () => {
+    setSignedIn(false)
 }
 
 
@@ -179,11 +171,11 @@ const handleRegister = ()=>{
 
       <div className="App">
         <ParticlesComponent id="particle" />
-        <Nav isAuthenticated={isAuthenticated}/>
+        <Nav removeAuthentication={removeAuthentication} signedIn ={signedIn} handleSignInOff ={handleSignInOff} />
 
         <Routes>
           <Route path="/" element={<Navigate to="/signin" />} />
-          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication} loadUser = {loadUser} />} />
+          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication} signedIn = {handleSignInOn}  loadUser = {loadUser} />} />
           <Route path="/register" element={<Register handleRegister={handleRegister} onAuthenticate = {handleAuthentication} />} />
           <Route
             path="/home"

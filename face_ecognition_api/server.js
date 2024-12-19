@@ -105,6 +105,8 @@ app.put('/image', (req, res) => {
         res.json(entries[0]) // Send 404 if no user is found
         }).catch(err => console.log (err))
     })
+
+    
 app.listen(4500, (err) => {
     console.log(err)
 })

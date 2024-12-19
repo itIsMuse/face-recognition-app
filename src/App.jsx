@@ -126,6 +126,22 @@ const onInputChange = (event) => {
 setInputUrl(event.target.value)
 }
 
+const updateEntries = (id) => {
+    fetch(`http://localhost:4500/image`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }) // Send the actual id in the request body
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Updated entries:', data); // Log the updated entries
+    })
+    .catch(err => {
+        console.error('Error updating entries:', err); // Handle errors
+    });
+};
+
+
 const onButtonSubmit = () => {
     inputUrl
 
@@ -140,6 +156,7 @@ const onButtonSubmit = () => {
     .catch(error => console.log('error', error));
 
     userinfo.entries ++
+    updateEntries(userinfo.id)
 }
 
 
@@ -156,6 +173,7 @@ const handleAuthentication = () => {
 
 const handleRegister = ()=>{
     handleAuthentication()
+    setSignedIn(true)
 }
 
 const handleSignInOn = ()=> {
@@ -176,7 +194,7 @@ const handleSignInOff = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/signin" />} />
           <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication} signedIn = {handleSignInOn}  loadUser = {loadUser} />} />
-          <Route path="/register" element={<Register handleRegister={handleRegister} onAuthenticate = {handleAuthentication} />} />
+          <Route path="/register" element={<Register handleRegister={handleRegister} onAuthenticate = {handleAuthentication} signedIn = {handleSignInOn}/>} />
           <Route
             path="/home"
             element={

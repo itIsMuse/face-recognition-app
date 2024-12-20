@@ -9,6 +9,9 @@ import ParticlesComponent from './components/particles'
 import Rank from './components/Rank'
 import SignIn from './SignIn form/SignIn'
 import Register from './components/Register/Register';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const App = () => {
 
@@ -188,6 +191,7 @@ const handleSignInOff = () => {
   return (
 
       <div className="App">
+        <ToastContainer/>
         <ParticlesComponent id="particle" />
         <Nav removeAuthentication={removeAuthentication} signedIn ={signedIn} handleSignInOff ={handleSignInOff} />
 

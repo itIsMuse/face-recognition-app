@@ -2,7 +2,7 @@ import express from 'express'
 import bcrypt from 'bcrypt-nodejs'
 import cors from 'cors'
 import knex from 'knex'
-
+import register from './controllers/register.js'
  
 
 const db = knex({
@@ -71,29 +71,7 @@ app.post('/signin', (req, res) => {
   
 
 
-app.post('/register', (req, res) => {
-    const {name, email, password} = req.body
-    const password_hash = bcrypt.hashSync(password)
-    
-    db.transaction(trx => {
-        trx.insert({
-           email: email,
-            password_hash : password_hash
-        }).into('login').
-        returning('email').then(
-            loginEmail =>
-                trx('users')
-                .returning('*')
-                .insert({
-                    name: name ,
-                    email: loginEmail[0].email,
-                    date_joined: new Date
-                }).then(user => res.json(user[0])).catch(
-                    err => res.status(400).json('unable to register')
-        )
-        ).then(trx.commit).catch(trx.rollback).then(trx.commit).catch(trx.rollback)
-    })
-})
+app.post('/register', (req, res) => {register(req, res, bcrypt, db)})
 
 app.put('/image', (req, res) => {
     const {id} = req.body
@@ -111,4 +89,4 @@ app.listen(4500, (err) => {
     console.log(err)
 })
 
-//need to continue tomorrow the whole refactoring 
+

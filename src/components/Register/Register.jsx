@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 const Register = ({onAuthenticate, handleRegister}) => {
 const [email, setEmail] = useState('')
@@ -21,8 +22,6 @@ const onNameChange = (event) =>{
 }
 
 const sendInfo = () => {
-  event.preventDefault()
-
   fetch('http://localhost:4500/register', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -30,10 +29,26 @@ const sendInfo = () => {
       email: email,
       password: password,
       name: name
-
-      
+    })
   })
-}, handleRegister())}
+    .then(async (response) => {
+      if (response.status === 200) {
+        const data = await response.json();
+        toast.success('Registration successful! 🎉');
+        handleRegister(data); // Pass the response data to handleRegister
+      } else if (response.status === 400) {
+        const error = await response.text();
+        toast.error(`Registration failed: ${error}`);
+      } else {
+        toast.error('An unexpected error occurred.');
+      }
+    })
+    .catch((error) => {
+      toast.error('Failed to connect to the server.');
+    });
+  
+  handleRegister();
+  }
   return (
     <div>
 <form className="max-w-sm mx-auto shadow-xl">

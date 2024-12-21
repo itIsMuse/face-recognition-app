@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
   const [email, setEmail] = useState("");
@@ -28,6 +29,7 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
     })
       .then((response) => {
         if (!response.ok) {
+          toast.error('Invalid Credentials')
           throw new Error('Invalid credentials'); // Handle non-2xx responses
         }
         signedIn()
@@ -37,12 +39,12 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
         if (userInfo) {
           loadUser(userInfo)
           onAuthenticate();
-          console.log('user-info', userInfo); // Log user info
+          toast.success(`Welcome ${userInfo.name}`) // Log user info
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
-      });
+        console.log(error)});
+      
 
       if(SignIn){
         return console.log('signed')

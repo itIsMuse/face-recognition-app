@@ -3,6 +3,10 @@ import bcrypt from 'bcrypt-nodejs'
 import cors from 'cors'
 import knex from 'knex'
 import register from './controllers/register.js'
+import signin from './controllers/signin.js'
+
+// import profile from './controllers/profile.js'
+// import image from './controllers/image.js'
  
 
 const db = knex({
@@ -25,64 +29,17 @@ app.use(cors())
 
 
 
-app.get('/profile/:id', (req, res)=>{
-    const {id} = req.params
-    db.select('*').from('users').where({id}).then(user => {
-        if(user.length){
-            res.send(user[0])
-        }else{
-            res.status(404).send('no such user') 
-        }
-    }
-    )
-        
-    }
-    )
+app.get('/profile/:id', (req, res)=>{profile(req, res, db)})
  
 
 
-app.post('/signin', (req, res) => {
-    const { email, password } = req.body;
-  
-    db.select('email', 'password_hash')
-      .from('login')
-      .where('email', '=', email)
-      .then(user => {
-        if (user.length) { // Check if the user exists
-          const isValid = bcrypt.compareSync(password, user[0].password_hash);
-          if (isValid) {
-            return db
-              .select('*')
-              .from('users')
-              .where('email', '=', email)
-              .then(user => res.json(user[0]))
-              .catch(err => res.status(400).json('unable to get user'));
-          } else {
-            // Wrong password
-            res.status(400).json('wrong credentials');
-          }
-        } else {
-          // Email not found
-          res.status(400).json('wrong credentials');
-        }
-      })
-      .catch(err => res.status(400).json('error logging in'));
-  });
+app.post('/signin', (req, res) => {signin(req, res, bcrypt, db)});
   
 
 
-app.post('/register', (req, res) => {register(req, res, bcrypt, db)})
+app.post('/register', (req, res) => {register(req, res, bcrypt, db)});
 
-app.put('/image', (req, res) => {
-    const {id} = req.body
-    db('users')
-    .where('id', '=', id)
-    .increment('entries', 1) // Increment the 'entries' column by 1 in the database
-    .returning('entries') // Return the updated 'entries' value
-    .then(entries => {
-        res.json(entries[0]) // Send 404 if no user is found
-        }).catch(err => console.log (err))
-    })
+app.put('/image', (req, res) => {image(req, res, db)});
 
 
 app.listen(4500, (err) => {
@@ -90,3 +47,4 @@ app.listen(4500, (err) => {
 })
 
 
+// its not working when i add the profile and the image to it something must be wrong with them 

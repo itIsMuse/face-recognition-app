@@ -9,3 +9,4 @@ const image = (req, res, db)=> {
         }).catch(err => console.log (err))
     }
 
+    export default image

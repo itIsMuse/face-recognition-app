@@ -11,3 +11,5 @@ const profile = (req, res, db) => {
     )
         
 }
+
+export default profile

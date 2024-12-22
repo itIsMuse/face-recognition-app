@@ -35,7 +35,8 @@ const sendInfo = () => {
       if (response.status === 200) {
         const data = await response.json();
         toast.success('Registration successful! 🎉');
-        handleRegister(data); // Pass the response data to handleRegister
+        handleRegister(data);
+        handleRegister() // Pass the response data to handleRegister
       } else if (response.status === 400) {
         const error = await response.text();
         toast.error(`Registration failed: ${error}`);
@@ -45,9 +46,8 @@ const sendInfo = () => {
     })
     .catch((error) => {
       toast.error('Failed to connect to the server.');
-    });
-  
-  handleRegister();
+    })
+ 
   }
   return (
     <div>

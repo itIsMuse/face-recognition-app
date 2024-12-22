@@ -1,5 +1,9 @@
  const register = (req, res, bcrypt, db) =>  {
     const {name, email, password} = req.body
+
+    if(!name || !email || !password){
+        return res.status(400).json('incorrect submission') 
+    }
     const password_hash = bcrypt.hashSync(password)
     
     db.transaction(trx => {

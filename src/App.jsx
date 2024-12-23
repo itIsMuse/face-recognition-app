@@ -11,6 +11,7 @@ import SignIn from './SignIn form/SignIn'
 import Register from './components/Register/Register';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { data } from 'autoprefixer';
 
 
 const App = () => {
@@ -69,51 +70,23 @@ console.log(userinfo)
 
    
 
-const setUpJSON = (imageUrl) => {
-    const PAT = '87124373b52f4a0a9374b0aa624c5402';
-    // Specify the correct user_id/app_id pairings
-    // Since you're making inferences outside your app's scope
-    const USER_ID = 'museya';
-    const APP_ID = 'face-detection';
-    // Change these to whatever model and image URL you want to use
-    const MODEL_ID = 'face-detection';
-    const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';
-    const IMAGE_URL = imageUrl;
-
-    
-    ///////////////////////////////////////////////////////////////////////////////////
-    // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
-    ///////////////////////////////////////////////////////////////////////////////////
-    
-    const raw = JSON.stringify({
-        "user_app_id": {
-            "user_id": USER_ID,
-            "app_id": APP_ID
-
-        },
-        
-        "inputs": [
-            {
-                "data": {
-                    "image": {
-                        "url": IMAGE_URL
+        const setUpJSON = (imageUrl) => {
+            return fetch('http://localhost:4500/setUpInfo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ imageUrl }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data from the backend');
                     }
-                }
-            }
-        ]
-    });
-    
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Key ' + PAT
-        },
-        body: raw
-    };
-    // console.log(requestOptions)
-    return requestOptions
-}
+                    return response.json();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        };
+        
 
 
 // NOTE: MODEL_VERSION_ID is optional, you can also call prediction with the MODEL_ID only

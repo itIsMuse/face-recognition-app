@@ -80,12 +80,17 @@ console.log(userinfo)
                     if (!response.ok) {
                         throw new Error('Failed to fetch data from the backend');
                     }
-                    return response.json();
+                    return response.json(); // This extracts the actual data
+                })
+                .then((data) => {
+                    console.log('Backend Response:', data); // This should log the actual data
+                    return data; // Return the data for further use
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
         };
+        
         
 
 
@@ -126,6 +131,7 @@ const onButtonSubmit = () => {
         setUpJSON(inputUrl))
     .then(response => response.json())
     .then(result => {
+        console.log(result)
         const faceLocation = calculateFaceLocation(result);
         setBoundingBox(faceLocation)
     })
@@ -191,4 +197,4 @@ const handleSignInOff = () => {
 export default App
 
 
-// next up will be to connect my entriees with the database so it can give me my count
+//its still not working but i think i was able to get into clarifai so thats good  now i just need to understand the app enough to continue what i am doing maybe test without the backend call and see what it is outputing 

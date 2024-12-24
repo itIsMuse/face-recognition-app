@@ -49,5 +49,3 @@ app.listen(4500, (err) => {
     console.log(err)
 })
 
-
-// its not working when i add the profile and the image to it something must be wrong with them 

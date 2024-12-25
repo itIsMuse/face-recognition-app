@@ -50,7 +50,6 @@ console.log(userinfo)
 
     const calculateFaceLocation = (data) => {
             const regions = data;
-            console.log(regions)
             const image = document.getElementById('img')
             const imageWidth = image.width
             const imageHeight = image.height

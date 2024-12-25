@@ -49,7 +49,8 @@ console.log(userinfo)
        
 
     const calculateFaceLocation = (data) => {
-            const regions = data.outputs[0].data.regions;
+            const regions = data;
+            console.log(regions)
             const image = document.getElementById('img')
             const imageWidth = image.width
             const imageHeight = image.height
@@ -126,20 +127,16 @@ const updateEntries = (id) => {
 const onButtonSubmit = () => {
     inputUrl
 
-    fetch('/api/v2/models/' + 
-        'face-detection' + "/versions/" + '6dc7e46bc9124c5c8824be4822abe105' + "/outputs", 
-        setUpJSON(inputUrl))
-    .then(response => response.json())
-    .then(result => {
-        console.log(result)
-        const faceLocation = calculateFaceLocation(result);
-        setBoundingBox(faceLocation)
-    })
-    .catch(error => console.log('error', error));
+        setUpJSON(inputUrl)
+            .then((data) => {
+                const faceLocation = calculateFaceLocation(data);
+                setBoundingBox(faceLocation);
+                userinfo.entries ++
+                updateEntries(userinfo.id)
+            })
+            .catch((error) => console.error('Error:', error));
+    };
 
-    userinfo.entries ++
-    updateEntries(userinfo.id)
-}
 
 
 

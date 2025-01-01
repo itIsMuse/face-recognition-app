@@ -171,8 +171,8 @@ const handleSignInOff = () => {
         <Nav removeAuthentication={removeAuthentication} signedIn ={signedIn} handleSignInOff ={handleSignInOff} />
 
         <Routes>
-          <Route path="/" element={<Navigate to="https://facerecognitionfrommuseya.netlify.app" />} />
-          <Route path="/signin" element={<SignIn onAuthenticate={handleAuthentication} signedIn = {handleSignInOn}  loadUser = {loadUser} />} />
+          <Route path="/" element={<Navigate to="/" />} />
+          <Route path="/" element={<SignIn onAuthenticate={handleAuthentication} signedIn = {handleSignInOn}  loadUser = {loadUser} />} />
           <Route path="/register" element={<Register handleRegister={handleRegister} onAuthenticate = {handleAuthentication} signedIn = {handleSignInOn}/>} />
           <Route
             path="/home"

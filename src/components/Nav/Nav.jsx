@@ -30,7 +30,7 @@ const Nav = ({removeAuthentication, signedIn, handleSignInOff, isAuthenticated})
       <ul style={{ display: "flex", justifyContent: "flex-end",  listStyle: "none", padding: 0 }}>
         <li style={{ marginRight: "20px" }}>
           <NavLink
-            to="/signin"
+            to="https://facerecognitionfrommuseya.netlify.app"
             style={({ isActive }) => ({
               fontWeight: isActive ? "bold" : "normal",
               color: isActive ? "white" : "white",

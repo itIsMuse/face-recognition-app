@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import { RingLoader } from 'react-spinners'
 
 const Register = ({onAuthenticate, handleRegister}) => {
 const [email, setEmail] = useState('')
@@ -72,5 +73,5 @@ const sendInfo = () => {
     </div>
   )
 }
-
+// imported ring loaader now i just need to use it 
 export default Register

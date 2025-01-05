@@ -40,7 +40,7 @@ const SignIn = ({ signedIn, onAuthenticate, loadUser }) => {
           loadUser(userInfo);
           onAuthenticate();
           toast.success(`Welcome ${userInfo.name}`);
-          navigate('/dashboard'); // Redirect after login
+          navigate('/home'); // Redirect after login
         }
       })
       .catch((error) => {

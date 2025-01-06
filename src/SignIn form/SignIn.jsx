@@ -48,6 +48,7 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
         }
       })
       .catch((error) => {
+        setLoading(false)
         console.log(error)});
       
 

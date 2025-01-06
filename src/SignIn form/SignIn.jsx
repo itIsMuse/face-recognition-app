@@ -6,6 +6,8 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // For programmatic navigation
+  const [loading, setLoading] = useState(false);
+
 
   const onEmailchange = (event) => {
     setEmail(event.target.value)
@@ -18,6 +20,7 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevents form submission reload
+    setLoading(true)
   
     fetch('https://face-ecognition-api.onrender.com/signin', {
       method: "POST",
@@ -36,6 +39,7 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
         return response.json();
       })
       .then((userInfo) => {
+        setLoading(false)
         if (userInfo) {
           loadUser(userInfo)
           onAuthenticate();
@@ -54,6 +58,14 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
   };
   
   return (
+    <div>
+      {}
+        {loading && (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+            <RingLoader color="#36d7b7" size={100} />
+          </div>
+        )}
+
 <form className="max-w-sm mx-auto shadow-xl">
   <div className='mx-10 mb-5'>
   <div className="mb-5">
@@ -77,6 +89,7 @@ const SignIn = ({signedIn, onAuthenticate, loadUser}) => {
   <button  type="submit" onClick={handleSubmit} className=" mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign in</button>
 </div>
 </form>
+</div>
   );
 };
 

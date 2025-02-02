@@ -24,7 +24,7 @@ const Register = ({ onAuthenticate, handleRegister }) => {
     event.preventDefault();
     setLoading(true); // Show spinner
 
-    fetch('https://face-ecognition-api.onrender.com/register', {
+    fetch('https://faceecognitionapi-production.up.railway.app/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, name }),

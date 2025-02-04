@@ -4,7 +4,7 @@ import './InputText.css'
 
 const InputText = ({onInputChange, onButtonSubmit}) => {
 
-  const introText = 'The brain will detect faces in your pictures. Give it a try'
+  const introText = 'Input the face URL to detect the face in the image'
   return (
     <>
     <div className='p-5 pt-9 mt- shadow text-lg w-full'>
